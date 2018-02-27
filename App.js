@@ -4,10 +4,11 @@ import { StyleSheet } from 'react-native';
 import { StackNavigator, DrawerNavigator } from "react-navigation";
 import CurrentRx from "./screens/CurrentRx";
 import SideBar from "./screens/SideBar";
+import DailySchedule from "./screens/DailySchedule";
 const Drawer = DrawerNavigator(
   {
     CurrentRx: { screen: CurrentRx },
-    // DailySchedule: { screen: DailySchedule },
+    DailySchedule: { screen: DailySchedule },
     // Pharma: { screen: Pharma },
     // PharmaList:{screen:PharmaList},
     // Proscriber: { screen: Proscriber },

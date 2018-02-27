@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { AppRegistry, Image, StatusBar, ImageBackground } from "react-native";
 import { Container, Content, Text, List, ListItem } from "native-base";
-const routes = ["CurrentRx"];
+const routes = ["CurrentRx","DailySchedule"];
 export default class SideBar extends React.Component {
   render() {
     return (

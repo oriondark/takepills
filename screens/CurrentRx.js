@@ -1,10 +1,44 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, FlatList, Image, TouchableHighlight } from 'react-native';
+import {  View, StyleSheet, FlatList, Image, TouchableHighlight } from 'react-native';
 import { Constants, MapView } from 'expo';
+import getTheme from 'takepills/native-base-theme/components';
+import material from 'takepills/native-base-theme/variables/material';
+import {
+    Container,
+    Header,
+    Title,
+    Button,
+    IconNB,
+    DeckSwiper,
+    Card,
+    CardItem,
+    Icon,
+    Thumbnail,
+    Text,
+    Left,
+    Right,
+    Body,
+    StyleProvider
+} from "native-base";
 var customData = require('takepills/data/sched.json');
 export default class CurrentRx extends Component {
     render() {
         return (
+
+            <StyleProvider style={getTheme(material)}>
+                <Container>
+                    <Header>
+                        <Left>
+                            <Button transparent onPress={() => this.props.navigation.navigate('DrawerOpen')}>
+                                <Icon name="menu" />
+                            </Button>
+                        </Left>
+                        <Body>
+                            <Title>CurrentRx</Title>
+                        </Body>
+                        <Right />
+                    </Header>
+
             <View>
                 <FlatList
                     data={[
@@ -26,6 +60,8 @@ export default class CurrentRx extends Component {
                     }}
                 />
             </View>
+            </Container>
+            </StyleProvider>
         );
     }
 }
