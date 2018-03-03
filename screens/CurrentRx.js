@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  View, StyleSheet, FlatList, Image, TouchableHighlight } from 'react-native';
+import { View, StyleSheet, FlatList, Image, TouchableHighlight } from 'react-native';
 import { Constants, MapView } from 'expo';
 import getTheme from 'takepills/native-base-theme/components';
 import material from 'takepills/native-base-theme/variables/material';
@@ -20,7 +20,72 @@ import {
     Body,
     StyleProvider
 } from "native-base";
-var customData = require('takepills/data/sched.json');
+import SlimHeader from 'takepills/screens/SlimHeader';
+//var customData = require('takepills/data/sched.json');
+const mydata = [
+    {
+        key: "Prescription123",
+        prescriptionid: "Prescription123",
+        drugname: 'Amoxicillian',
+        drugdosage: '2 Pills',
+        musttakewithfood: false,
+        musttakewithoutfood: false,
+        timetoday: '9:00 AM',
+        drugmedicinedosage: "500 MG",
+        color: "#ff0000",
+        alarmon: true
+    },
+    {
+        key: "Prescription456",
+        prescriptionid: "Prescription456",
+        drugname: 'Metformin',
+        drugdosage: '2 Pills',
+        musttakewithfood: false,
+        musttakewithoutfood: false,
+        timetoday: '9:00',
+        drugmedicinedosage: "500 MG",
+        color: "#800080",
+        alarmon: true
+    },
+    {
+        key: "Prescription789",
+        prescriptionid: "Prescription789",
+        drugname: 'Coumadin',
+        drugdosage: '3 Pills',
+        musttakewithfood: false,
+        musttakewithoutfood: false,
+        timetoday: '9:00 AM',
+        drugmedicinedosage: "850 MG",
+        color: "#00688B",
+        alarmon: true
+    },
+    {
+        key: "Prescription111",
+        prescriptionid: "Prescription111",
+        drugname: 'Zoloft',
+        drugdosage: '2 Pills',
+        musttakewithfood: false,
+        musttakewithoutfood: false,
+        timetoday: '9:00 AM',
+        drugmedicinedosage: "50 MG",
+        color: "#006400",
+        alarmon: true
+    },
+    {
+        key: "Prescription22",
+        prescriptionid: "Prescription22",
+        drugname: 'Tamiflu',
+        drugdosage: '1 Pill',
+        musttakewithfood: false,
+        musttakewithoutfood: false,
+        timetoday: '9:00 AM',
+        drugmedicinedosage: "75 MG",
+        color: "#cc5500",
+        alarmon: true
+    },
+];
+
+
 export default class CurrentRx extends Component {
     render() {
         return (
@@ -34,33 +99,39 @@ export default class CurrentRx extends Component {
                             </Button>
                         </Left>
                         <Body>
-                            <Title>CurrentRx</Title>
+                            <Button transparent onPress={() => this.props.navigation.navigate.navigate('DrawerOpen')}>
+                                <Icon name="arrow-back" />
+                            </Button>
                         </Body>
-                        <Right />
+                        <Right>
+                            <Button transparent onPress={() => Communications.phonecall('4234866674', true)}>
+                                <Icon name="call" />
+                            </Button>
+                            <Button transparent onPress={() => Communications.textWithoutEncoding('4232270153', 'Does this silly thing work?')}>
+                                <Icon name="chatbubbles" />
+                            </Button>
+                            <Button transparent>
+                                <Icon name="home" />
+                            </Button>
+                        </Right>
                     </Header>
-
-            <View>
-                <FlatList
-                    data={[
-                        { key: '1', name: 'Amoxicillan', amt: '500 MG' },
-                        { key: '2', name: 'Coumadin', amt: '500 MG' },
-                        { key: '3', name: 'Metformin', amt: '500 MG' },
-                        { key: '4', name: 'Dilotid', amt: '500 MG' }
-                    ]}
-                    renderItem={({ item }) => {
-                        return <View style={styles.itemContainer}>
-                            <View style={styles.infoContainer}>
-                                <View style={styles.topRow}>
-                                    <Image style={{ width: 50, height: 50 }} source={require("takepills/img/assets/calendar.png")} />
-                                    <Text> {item.name} {item.amt}</Text>
-                                    <Image style={{ width: 50, height: 50 }} source={require("takepills/img/assets/info.png")} />
+                    <View>
+                        <FlatList
+                            data={mydata}
+                            renderItem={({ item }) => {
+                                return <View style={styles.itemContainer}>
+                                    <View style={styles.infoContainer}>
+                                        <View style={styles.topRow}>
+                                            <Icon name="calendar" style={{ color: data.color, fontSize: 50 }} />
+                                            <Text style={{ color: data.color, fontSize: 16 }}>> {item.drugname} {item.drugmedicinedosage}</Text>
+                                            <Icon name="information-circle" style={{ color: data.color, fontSize: 50 }} />
+                                        </View>
+                                    </View>
                                 </View>
-                            </View>
-                        </View>
-                    }}
-                />
-            </View>
-            </Container>
+                            }}
+                        />
+                    </View>
+                </Container>
             </StyleProvider>
         );
     }

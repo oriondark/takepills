@@ -33,7 +33,7 @@ const AppNavigator = StackNavigator(
 );
 export default () =>
   <Root>
-    <AppNavigator />
+     <AppNavigator />
   </Root>;
 const styles = StyleSheet.create({
   container: {

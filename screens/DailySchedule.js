@@ -3,8 +3,11 @@ import { View, StyleSheet, FlatList, Image, TouchableHighlight } from 'react-nat
 import { Constants, MapView } from 'expo';
 import getTheme from 'takepills/native-base-theme/components';
 import material from 'takepills/native-base-theme/variables/material';
+import Communications from 'react-native-communications';
+import SlimHeader from 'takepills/screens/SlimHeader';
 import {
   Container,
+  Content,
   Header,
   Title,
   Button,
@@ -21,7 +24,70 @@ import {
   StyleProvider
 } from "native-base";
 var customData = require('takepills/data/sched.json');
-export default class CurrentRx extends Component {
+const mydata = [
+  {
+    key: "Prescription123",
+    prescriptionid: "Prescription123",
+    drugname: 'Amoxicillian',
+    drugdosage: '2 Pills',
+    musttakewithfood: false,
+    musttakewithoutfood: false,
+    timetoday: '9:00 AM',
+    drugmedicinedosage: "500 MG",
+    color: "#ff0000",
+    alarmon: true
+  },
+  {
+    key: "Prescription456",
+    prescriptionid: "Prescription456",
+    drugname: 'Metformin',
+    drugdosage: '2 Pills',
+    musttakewithfood: false,
+    musttakewithoutfood: false,
+    timetoday: '9:00',
+    drugmedicinedosage: "500 MG",
+    color: "#800080",
+    alarmon: true
+  },
+  {
+    key: "Prescription789",
+    prescriptionid: "Prescription789",
+    drugname: 'Coumadin',
+    drugdosage: '3 Pills',
+    musttakewithfood: false,
+    musttakewithoutfood: false,
+    timetoday: '9:00 AM',
+    drugmedicinedosage: "850 MG",
+    color: "#00688B",
+    alarmon: true
+  },
+  {
+    key: "Prescription111",
+    prescriptionid: "Prescription111",
+    drugname: 'Zoloft',
+    drugdosage: '2 Pills',
+    musttakewithfood: false,
+    musttakewithoutfood: false,
+    timetoday: '9:00 AM',
+    drugmedicinedosage: "50 MG",
+    color: "#006400",
+    alarmon: true
+  },
+  {
+    key: "Prescription22",
+    prescriptionid: "Prescription22",
+    drugname: 'Tamiflu',
+    drugdosage: '1 Pill',
+    musttakewithfood: false,
+    musttakewithoutfood: false,
+    timetoday: '9:00 AM',
+    drugmedicinedosage: "75 MG",
+    color: "#cc5500",
+    alarmon: true
+  },
+];
+
+export default class DailySchedule extends Component {
   render() {
     return (
 
@@ -34,132 +100,136 @@ export default class CurrentRx extends Component {
               </Button>
             </Left>
             <Body>
-              <Title>Daily Schedule</Title>
+              <Button transparent onPress={() => this.props.navigation.navigate.navigate('DrawerOpen')}>
+                <Icon name="arrow-back" />
+              </Button>
             </Body>
-            <Right />
+            <Right>
+              <Button transparent onPress={() => Communications.phonecall('4234866674', true)}>
+                <Icon name="call" />
+              </Button>
+              <Button transparent onPress={() => Communications.textWithoutEncoding('4232270153', 'Does this silly thing work?')}>
+                <Icon name="chatbubbles" />
+              </Button>
+              <Button transparent>
+                <Icon name="home" />
+              </Button>
+            </Right>
           </Header>
-
-          <View>
-            <FlatList
-              data={[
-                { key: 'Amoxicillian', pill: '2 Pills', time: '9:00', icon1: '1', icon2: '2', icon3: '3' },
-                { key: 'Jackson', pill: '2 Pills', time: '9:00', icon1: '1', icon2: '2', icon3: '3' },
-                { key: 'James', pill: '2 Pills', time: '9:00', icon1: '1', icon2: '2', icon3: '3' },
-                { key: 'Joel', pill: '2 Pills', time: '9:00', icon1: '1', icon2: '2', icon3: '3' },
-                { key: 'John', pill: '2 Pills', time: '9:00', icon1: '1', icon2: '2', icon3: '3' },
-                { key: 'Jillian', pill: '2 Pills', time: '9:00', icon1: '1', icon2: '2', icon3: '3' },
-                { key: 'Jimmy', pill: '2 Pills', time: '9:00', icon1: '1', icon2: '2', icon3: '3' },
-                { key: 'Julie', pill: '2 Pills', time: '9:00', icon1: '1', icon2: '2', icon3: '3' },
-              ]}
-              renderItem={({ item }) => {
-                return <View style={styles.itemContainer}>
-                  <View style={styles.infoContainer}>
-                    <View style={styles.topRow}>
-                      <Text style={styles.drugName}>
-                        {item.key}
-                      </Text>
-                      <View style={{ flexDirection: 'row' }}>
-                        <Text style={styles.pillText}>
-                          {item.pill}
-                        </Text>
-                        <Text style={styles.timeText}>
-                          {item.time}
-                        </Text>
-                      </View>
-                    </View>
-                    <View style={styles.bottomRow}>
-                      <Image style={{ width: 50, height: 50 }} source={require("takepills/img/assets/calendar.png")} />
-                      <Image style={{ width: 50, height: 50 }} source={require("takepills/img/assets/alarm.png")} />
-                      <Image style={{ width: 50, height: 50 }} source={require("takepills/img/assets/settings.png")} />
-
-                    </View>
+          <Content>
+            {
+              mydata.map((data) => {
+                return (
+                  <View key={data.prescriptionid} style={{ padding: 7, flexDirection: 'row', alignItems: 'center', paddingTop: Constants.statusBarHeight }}>
+                    <Card style={{ borderRadius: 4, borderWidth: 0.5 }}>
+                      <CardItem>
+                        <Left>
+                          <Text style={{ color: data.color, fontSize: 16 }}>{data.drugname}</Text>
+                        </Left>
+                        <Body>
+                          <Right>
+                            <Text>{data.drugdosage}</Text>
+                            <Text note>{data.drugmedicinedosage}</Text>
+                          </Right>
+                        </Body>
+                        <Right>
+                          <Text style={{ fontWeight: "bold" }} >{data.timetoday}</Text>
+                        </Right>
+                      </CardItem>
+                      <CardItem>
+                        <Left>
+                          <Icon name="calendar" style={{ color: data.color, fontSize: 50 }} />
+                        </Left>
+                        <Body>
+                          <Icon name="alarm" style={{ color: data.color, fontSize: 50 }} />
+                        </Body>
+                        <Right>
+                          <Icon name="settings" style={{ fontSize: 50 }} />
+                        </Right>
+                      </CardItem>
+                    </Card>
+                    <Button style={{ borderRadius: 4, borderWidth: 0.5 }}><Icon name="checkmark-circle" style={{ fontSize: 50 }} /></Button>
                   </View>
-                  <View style={styles.doneContainer}>
-                    <Image
-                      source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/cat.gif' }}
-                      style={{ height: 40, width: 40 }}
-                    />
-                  </View>
-                </View>
-              }}
-            />
-          </View>
+                );
+              })
+            }
+          </Content>
         </Container>
-      </StyleProvider>
+      </StyleProvider >
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingTop: Constants.statusBarHeight,
-      backgroundColor: '#ecf0f1',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: '#ecf0f1',
   },
   paragraph: {
-      margin: 24,
-      fontSize: 18,
-      fontWeight: 'bold',
-      textAlign: 'center',
-      color: '#34495e',
+    margin: 24,
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#34495e',
   },
   //Daily Schedule
   itemContainer: {
-      padding: 7,
-      flexDirection: 'row',
-      borderRadius: 4,
-      borderWidth: 0.5,
-      // yellow main container
-      borderColor: '#FFFF00',
+    padding: 7,
+    flexDirection: 'row',
+    borderRadius: 4,
+    borderWidth: 0.5,
+    // yellow main container
+    borderColor: '#FFFF00',
   },
   infoContainer: {
-      padding: 10,
-      alignSelf: 'stretch',
-      flex: 0.8,
-      borderRadius: 4,
-      borderWidth: 0.5,
-      // green info container
-      borderColor: '#00FF00',
+    padding: 10,
+    alignSelf: 'stretch',
+    flex: 0.8,
+    borderRadius: 4,
+    borderWidth: 0.5,
+    // green info container
+    borderColor: '#00FF00',
   },
   topRow: {
-      padding: 3,
-      //fontSize: 18,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      borderRadius: 4,
-      borderWidth: 0.5,
-      // red top row
-      borderColor: '#FF0000',
+    padding: 3,
+    //fontSize: 18,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderRadius: 4,
+    borderWidth: 0.5,
+    // red top row
+    borderColor: '#FF0000',
   },
   bottomRow: {
-      marginTop: 6,
-      padding: 3,
-      //fontSize: 18,
-      justifyContent: 'space-between',
-      flexDirection: 'row',
-      borderRadius: 4,
-      borderWidth: 0.5,
-      // blue bottom row
-      borderColor: '#0000FF',
+    marginTop: 6,
+    padding: 3,
+    //fontSize: 18,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    borderRadius: 4,
+    borderWidth: 0.5,
+    // blue bottom row
+    borderColor: '#0000FF',
   },
   timeText: {
-      marginLeft: 7,
+    marginLeft: 7,
   },
   drugName: {
   },
   pillText: {
-      marginLeft: 5,
+    marginLeft: 5,
   },
   doneContainer: {
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: 10,
-      flex: 0.2,
-      borderRadius: 4,
-      borderWidth: 0.5,
-      // black for notification
-      borderColor: '#000000',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    flex: 0.2,
+    borderRadius: 4,
+    borderWidth: 0.5,
+    // black for notification
+    borderColor: '#000000',
   }
 });
