@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, FlatList, Image, TouchableHighlight } from 'react-native';
-import { Constants, MapView } from 'expo';
+import { Constants, Camera, FileSystem, Permissions, MapView } from 'expo';
 import getTheme from 'takepills/native-base-theme/components';
 import material from 'takepills/native-base-theme/variables/material';
 import {
@@ -18,76 +18,21 @@ import {
     Left,
     Right,
     Body,
-    StyleProvider
+    StyleProvider,
+    Content
 } from "native-base";
-import SlimHeader from 'takepills/screens/SlimHeader';
-//var customData = require('takepills/data/sched.json');
-const mydata = [
-    {
-        key: "Prescription123",
-        prescriptionid: "Prescription123",
-        drugname: 'Amoxicillian',
-        drugdosage: '2 Pills',
-        musttakewithfood: false,
-        musttakewithoutfood: false,
-        timetoday: '9:00 AM',
-        drugmedicinedosage: "500 MG",
-        color: "#ff0000",
-        alarmon: true
-    },
-    {
-        key: "Prescription456",
-        prescriptionid: "Prescription456",
-        drugname: 'Metformin',
-        drugdosage: '2 Pills',
-        musttakewithfood: false,
-        musttakewithoutfood: false,
-        timetoday: '9:00',
-        drugmedicinedosage: "500 MG",
-        color: "#800080",
-        alarmon: true
-    },
-    {
-        key: "Prescription789",
-        prescriptionid: "Prescription789",
-        drugname: 'Coumadin',
-        drugdosage: '3 Pills',
-        musttakewithfood: false,
-        musttakewithoutfood: false,
-        timetoday: '9:00 AM',
-        drugmedicinedosage: "850 MG",
-        color: "#00688B",
-        alarmon: true
-    },
-    {
-        key: "Prescription111",
-        prescriptionid: "Prescription111",
-        drugname: 'Zoloft',
-        drugdosage: '2 Pills',
-        musttakewithfood: false,
-        musttakewithoutfood: false,
-        timetoday: '9:00 AM',
-        drugmedicinedosage: "50 MG",
-        color: "#006400",
-        alarmon: true
-    },
-    {
-        key: "Prescription22",
-        prescriptionid: "Prescription22",
-        drugname: 'Tamiflu',
-        drugdosage: '1 Pill',
-        musttakewithfood: false,
-        musttakewithoutfood: false,
-        timetoday: '9:00 AM',
-        drugmedicinedosage: "75 MG",
-        color: "#cc5500",
-        alarmon: true
-    },
-];
+import Communications from 'react-native-communications';
+
+var customData = require('takepills/data/sched.json');
+export default class InsuranceInfo extends Component {
+    state = {
+        frontpic: `${FileSystem.documentDirectory}photos/front.jpg`,
+        backpic: `${FileSystem.documentDirectory}photos/back.jpg`
+    };
 
 
-export default class CurrentRx extends Component {
     render() {
+        console.log(this.state.frontpic);
         return (
 
             <StyleProvider style={getTheme(material)}>
@@ -115,27 +60,32 @@ export default class CurrentRx extends Component {
                             </Button>
                         </Right>
                     </Header>
-                    <View>
-                        <FlatList
-                            data={mydata}
-                            renderItem={({ item }) => {
-                                return <View style={styles.itemContainer}>
-                                    <View style={styles.infoContainer}>
-                                        <View style={styles.topRow}>
-                                            <Icon name="calendar" style={{ color: item.color, fontSize: 50 }} />
-                                            <Text style={{ color: item.color, fontSize: 16 }}> {item.drugname} {item.drugmedicinedosage}</Text>
-                                            <Icon name="information-circle" style={{ color: item.color, fontSize: 50 }} />
-                                        </View>
-                                    </View>
-                                </View>
-                            }}
-                        />
-                    </View>
+                    <Content>
+                        <Card>
+                            <CardItem>
+                                <Image style={{ width: 200, height: 200 }} source={{ uri: this.state.frontpic }} />
+                                <Button transparent onPress={() => this.props.navigation.navigate('Camera', { solidpic: 'front' })}>
+                                    <Icon name="menu" /><Text>Front Of Card</Text>
+                                </Button>
+                            </CardItem>
+                            <CardItem>
+                                <Body>
+                                    <Image style={{ width: 200, height: 200 }} source={{ uri: this.state.backpic }} />
+                                </Body>
+                                <Left>
+                                    <Button transparent onPress={() => this.props.navigation.navigate('Camera', { solidpic: 'back' })}>
+                                        <Icon name="menu" /><Text>Back Of Card</Text>
+                                    </Button>
+                                </Left>
+                            </CardItem>
+                        </Card>
+                    </Content>
                 </Container>
             </StyleProvider>
         );
     }
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

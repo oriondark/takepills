@@ -1,0 +1,58 @@
+{
+    "prescriptions": [
+        {
+            "answerid": "algo144",
+            "prescriptionid": "Prescription123",
+            "medication": {
+                "drugname": "Amoxicillian",
+                "genericname": "Amoxicillan",
+                "drugdosage": "2 Pills",
+                "musttakewithfood": false,
+                "musttakewithoutfood": false,
+                "drugmedicinedosage": "500 MG",
+                "ndc": "123123",
+                "class": "narcotic"
+            },
+            "color": "#ff0000",
+            "schedule": {
+                "dosingtimes": "daily",
+                "tod": [
+                    "0900",
+                    "15:00",
+                    "18:00"
+                ],
+                "nexttaketime": "3/3/2017 9:00 AM",
+                "alarmon": true
+            },
+            "pharmacies": [
+                {
+                    "pharmacyid": "pharm123",
+                    "name": "12 StoneHealth",
+                    "street": "352 W Northfield Blvd #3",
+                    "city": "Murfreesboro",
+                    "state": "TN",
+                    "postcode": 37129,
+                    "image": "require('takepills/img/assets/pharma.jpg')",
+                    "phone": "(844) 893-0012",
+                    "latitude": 35.8722944,
+                    "longitude": -86.3918846,
+                    "lastfilldate": "3/3/2017"
+                }
+            ],
+            "prescribers": [
+                {
+                    "prescriberid": "pres123",
+                    "name": "12 StoneHealth",
+                    "street": "352 W Northfield Blvd #3",
+                    "city": "Murfreesboro",
+                    "state": "TN",
+                    "postcode": 37129,
+                    "image": "require('takepills/img/assets/pharma.jpg')",
+                    "phone": "(844) 893-0012",
+                    "latitude": 35.8722944,
+                    "longitude": -86.3918846
+                }
+            ]
+        }
+    ]
+}

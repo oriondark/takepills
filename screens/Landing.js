@@ -18,78 +18,36 @@ import {
     Left,
     Right,
     Body,
-    StyleProvider
+    StyleProvider,
+    Content
 } from "native-base";
-import SlimHeader from 'takepills/screens/SlimHeader';
-//var customData = require('takepills/data/sched.json');
-const mydata = [
-    {
-        key: "Prescription123",
-        prescriptionid: "Prescription123",
-        drugname: 'Amoxicillian',
-        drugdosage: '2 Pills',
-        musttakewithfood: false,
-        musttakewithoutfood: false,
-        timetoday: '9:00 AM',
-        drugmedicinedosage: "500 MG",
-        color: "#ff0000",
-        alarmon: true
-    },
-    {
-        key: "Prescription456",
-        prescriptionid: "Prescription456",
-        drugname: 'Metformin',
-        drugdosage: '2 Pills',
-        musttakewithfood: false,
-        musttakewithoutfood: false,
-        timetoday: '9:00',
-        drugmedicinedosage: "500 MG",
-        color: "#800080",
-        alarmon: true
-    },
-    {
-        key: "Prescription789",
-        prescriptionid: "Prescription789",
-        drugname: 'Coumadin',
-        drugdosage: '3 Pills',
-        musttakewithfood: false,
-        musttakewithoutfood: false,
-        timetoday: '9:00 AM',
-        drugmedicinedosage: "850 MG",
-        color: "#00688B",
-        alarmon: true
-    },
-    {
-        key: "Prescription111",
-        prescriptionid: "Prescription111",
-        drugname: 'Zoloft',
-        drugdosage: '2 Pills',
-        musttakewithfood: false,
-        musttakewithoutfood: false,
-        timetoday: '9:00 AM',
-        drugmedicinedosage: "50 MG",
-        color: "#006400",
-        alarmon: true
-    },
-    {
-        key: "Prescription22",
-        prescriptionid: "Prescription22",
-        drugname: 'Tamiflu',
-        drugdosage: '1 Pill',
-        musttakewithfood: false,
-        musttakewithoutfood: false,
-        timetoday: '9:00 AM',
-        drugmedicinedosage: "75 MG",
-        color: "#cc5500",
-        alarmon: true
-    },
-];
+import Communications from 'react-native-communications';
 
+var customData = require('takepills/data/sched.json');
+export default class Landing extends Component {
 
-export default class CurrentRx extends Component {
+    constructor() {
+        super();
+        this.state = {
+        isReady: false
+        };
+    };
+    async componentWillMount() {
+        await Expo.Font.loadAsync({
+            Roboto: require("native-base/Fonts/Roboto.ttf"),
+            Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+            Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf")
+        });
+        this.setState({ isReady: true });
+    };
+
     render() {
+        if (!this.state.isReady) {
+            return <Expo.AppLoading />;
+            }
+            
         return (
-
+            
             <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
@@ -115,27 +73,32 @@ export default class CurrentRx extends Component {
                             </Button>
                         </Right>
                     </Header>
-                    <View>
-                        <FlatList
-                            data={mydata}
-                            renderItem={({ item }) => {
-                                return <View style={styles.itemContainer}>
-                                    <View style={styles.infoContainer}>
-                                        <View style={styles.topRow}>
-                                            <Icon name="calendar" style={{ color: item.color, fontSize: 50 }} />
-                                            <Text style={{ color: item.color, fontSize: 16 }}> {item.drugname} {item.drugmedicinedosage}</Text>
-                                            <Icon name="information-circle" style={{ color: item.color, fontSize: 50 }} />
-                                        </View>
-                                    </View>
-                                </View>
-                            }}
-                        />
-                    </View>
+                    <Content>
+                        <Card>
+                            <CardItem>
+                                <Left>
+                                    <Button onPress={() => this.props.navigation.navigate("CurrentRx")}><Text>CurrentRx</Text></Button>
+                                </Left>
+                                <Right>
+                                    <Button onPress={() => this.props.navigation.navigate("DailySchedule")}><Text>Daily Schedule</Text></Button>
+                                </Right>
+                            </CardItem>
+                            <CardItem>
+                                <Left>
+                                    <Button onPress={() => this.props.navigation.navigate("InsuranceInfo")}><Text>Insurance Info</Text></Button>
+                                </Left>
+                                <Right>
+                                    <Button onPress={() => this.props.navigation.navigate("PharmaList")}><Text>Pharmacies</Text></Button>
+                                </Right>
+                            </CardItem>
+                        </Card>
+                    </Content>
                 </Container>
             </StyleProvider>
         );
     }
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

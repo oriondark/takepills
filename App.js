@@ -5,17 +5,27 @@ import { StackNavigator, DrawerNavigator } from "react-navigation";
 import CurrentRx from "./screens/CurrentRx";
 import SideBar from "./screens/SideBar";
 import DailySchedule from "./screens/DailySchedule";
+import Pharma from "./screens/Pharma";
+import PharmaList from "./screens/PharmaList";
+import InsuranceInfo from "./screens/InsuranceInfo";
+import Landing from "./screens/Landing";
+import Camera from "./screens/Camera";
 const Drawer = DrawerNavigator(
   {
+    
+    Pharma: { screen: Pharma },
     CurrentRx: { screen: CurrentRx },
     DailySchedule: { screen: DailySchedule },
-    // Pharma: { screen: Pharma },
-    // PharmaList:{screen:PharmaList},
+    PharmaList:{screen:PharmaList},
+    InsuranceInfo:{screen:InsuranceInfo},
+    Landing:{screen:Landing},
+    Camera:{screen:Camera}
+    
     // Proscriber: { screen: Proscriber },
     // ProscriberList:{screen:ProscriberList},
   },
   {
-    initialRouteName: "CurrentRx",
+    initialRouteName: "Landing",
     contentOptions: {
       activeTintColor: "#fff"
     },
