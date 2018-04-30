@@ -26,8 +26,8 @@ import Communications from 'react-native-communications';
 var customData = require('takepills/data/sched.json');
 export default class Landing extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
         isReady: false
         };
@@ -41,10 +41,13 @@ export default class Landing extends Component {
         this.setState({ isReady: true });
     };
 
+
+
     render() {
         if (!this.state.isReady) {
             return <Expo.AppLoading />;
             }
+        
             
         return (
             
@@ -77,19 +80,25 @@ export default class Landing extends Component {
                         <Card>
                             <CardItem>
                                 <Left>
-                                    <Button onPress={() => this.props.navigation.navigate("CurrentRx")}><Text>CurrentRx</Text></Button>
+                                    <Button onPress={() => this.props.onRoute("CurrentRx")}><Text>CurrentRx</Text></Button>
                                 </Left>
                                 <Right>
-                                    <Button onPress={() => this.props.navigation.navigate("DailySchedule")}><Text>Daily Schedule</Text></Button>
+                                    <Button onPress={() => this.props.onRoute("DailySchedule")}><Text>Daily Schedule</Text></Button>
                                 </Right>
                             </CardItem>
                             <CardItem>
                                 <Left>
-                                    <Button onPress={() => this.props.navigation.navigate("InsuranceInfo")}><Text>Insurance Info</Text></Button>
+                                    <Button onPress={() => this.props.onRoute("InsuranceInfo")}><Text>Insurance Info</Text></Button>
                                 </Left>
                                 <Right>
-                                    <Button onPress={() => this.props.navigation.navigate("PharmaList")}><Text>Pharmacies</Text></Button>
+                                    <Button onPress={() => this.props.onRoute("PharmaList")}><Text>Pharmacies</Text></Button>
                                 </Right>
+                            </CardItem>
+                            <CardItem>
+                                <Left>
+                                    <Button onPress={() => this.props.onRoute("Pharma")}><Text>Insurance Info</Text></Button>
+                                </Left>
+                               
                             </CardItem>
                         </Card>
                     </Content>

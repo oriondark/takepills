@@ -3,6 +3,9 @@ import { AppRegistry, Image, StatusBar, ImageBackground } from "react-native";
 import { Container, Content, Text, List, ListItem } from "native-base";
 const routes = ["CurrentRx","DailySchedule", "Pharma", "PharmaList","InsuranceInfo", "Camera"];
 export default class SideBar extends React.Component {
+  constructor(props) {
+    super(props); 
+  }
   render() {
     return (
       <Container>
@@ -27,7 +30,7 @@ export default class SideBar extends React.Component {
             return (
               <ListItem
                 button
-                onPress={() => this.props.navigation.navigate(data)}>
+                >
                 <Text>{data}</Text>
               </ListItem>
             );
