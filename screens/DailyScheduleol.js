@@ -88,10 +88,6 @@ const mydata = [
 ];
 
 export default class DailySchedule extends Component {
-    constructor(props) {
-        super(props);
-        // var omniData = require('takepills/data/sched.json');
-      }
   render() {
     return (
 
@@ -122,18 +118,18 @@ export default class DailySchedule extends Component {
           </Header>
           <Content>
             {
-               this.props.mydata.map((data) => {
+              mydata.map((data) => {
                 return (
-                    <View key={data.prescriptionid} style={{ padding: 7, flexDirection: 'row', alignItems: 'center', paddingTop: Constants.statusBarHeight }}>
+                  <View key={data.prescriptionid} style={{ padding: 7, flexDirection: 'row', alignItems: 'center', paddingTop: Constants.statusBarHeight }}>
                     <Card style={{ borderRadius: 4, borderWidth: 0.5 }}>
                       <CardItem>
                         <Left>
-                          <Text style={{ color: "black", fontSize: 16 }}>{data.medication.medicationame}</Text>
+                          <Text style={{ color: data.color, fontSize: 16 }}>{data.drugname}</Text>
                         </Left>
                         <Body>
                           <Right>
-                            <Text>{data.medication.medicationdosage}</Text>
-                            <Text note>{data.medication.medicationdosagetype}</Text>
+                            <Text>{data.drugdosage}</Text>
+                            <Text note>{data.drugmedicinedosage}</Text>
                           </Right>
                         </Body>
                         <Right>
@@ -142,10 +138,10 @@ export default class DailySchedule extends Component {
                       </CardItem>
                       <CardItem>
                         <Left>
-                          <Icon name="calendar" style={{ color: "black", fontSize: 50 }} />
+                          <Icon name="calendar" style={{ color: data.color, fontSize: 50 }} />
                         </Left>
                         <Body>
-                          <Icon name="alarm" style={{ color: "black", fontSize: 50 }} />
+                          <Icon name="alarm" style={{ color: data.color, fontSize: 50 }} />
                         </Body>
                         <Right>
                           <Icon name="settings" style={{ fontSize: 50 }} />

@@ -10,6 +10,8 @@ import PharmaList from "./screens/PharmaList";
 import InsuranceInfo from "./screens/InsuranceInfo";
 import Landing from "./screens/Landing";
 import Camera from "./screens/Camera";
+import Test from "./screens/Test";
+
 const Drawer = DrawerNavigator(
   {
 
@@ -19,8 +21,8 @@ const Drawer = DrawerNavigator(
     PharmaList: { screen: PharmaList },
     InsuranceInfo: { screen: InsuranceInfo },
     Landing: { screen: Landing },
-    Camera: { screen: Camera }
-
+    Camera: { screen: Camera },
+Test: {screen : Test}
     // Proscriber: { screen: Proscriber },
     // ProscriberList:{screen:ProscriberList},
   },
@@ -48,32 +50,39 @@ export default class App extends React.Component {
     super(props);
     // var omniData = require('takepills/data/sched.json');
     this.state = {
-
+      pharmData: require('takepills/data/go.json'),
+      pharmList: require('takepills/data/pharmacy.json'),
       routeName: "Landing"
     };
+   // console.log(this.state.pharmData);
   }
   onRouteChange(routename) {
     console.log(routename);
 
     this.setState({ routeName: routename })
   };
+
+  onPharmacySelect(pharmacyid) {
+    this.state({routename:"Pharma",selectedpharmaid:pharmacyid})
+  }
   render() {
     <AppNavigator />
     switch (this.state.routeName) {
-
+     case 'Test':
+     return (<Test mydata={this.state.pharmData.prescriptions}/>);
       case 'Landing':
         return (<Landing
           onRoute={(routename) => this.onRouteChange(routename)} />);
       case 'Pharma':
-        return (<PharmaList />);
+        return (<Pharma  />);
       case 'CurrentRx':
         return (<CurrentRx />);
       case 'DailySchedule':
-        return (<DailySchedule />);
+        return (<DailySchedule mydata={this.state.pharmData.prescriptions} />);
       case 'InsuranceInfo':
         return (<InsuranceInfo />);
       case 'PharmaList':
-        return (<PharmaList />);
+        return (<PharmaList mydata={this.state.pharmList}/>);
 
     }
 
