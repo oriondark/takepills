@@ -99,7 +99,7 @@ export default class DailySchedule extends Component {
         <Container>
           <Header>
             <Left>
-              <Button transparent onPress={() => this.props.navigation.navigate('DrawerOpen')}>
+              <Button transparent onPress={() => navigation.navigate('DrawerOpen')}>
                 <Icon name="menu" />
               </Button>
             </Left>

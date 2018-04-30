@@ -27,8 +27,10 @@ var customData = require('takepills/data/sched.json');
 export default class Pharma extends Component {
   state = {
     isMapReady: false,
-    mapRegion: { latitude: 35.8722944, longitude: -86.3918846, latitudeDelta: 0.0922, longitudeDelta: 0.0421 },
-    pharma: { name: "12 StoneHealth", street: "352 W Northfield Blvd #3", city: "Murfreesboro", state: "TN", "postcode": 37129, "image": require("takepills/img/assets/pharma.jpg"), phone: "(844) 893-0012" }
+    mapRegion: { latitude: this.props.Pharmacy.latitude, longitude: this.props.Pharmacy.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 },
+   /*  mapRegion: { latitude: 35.8722944, longitude: -86.3918846, latitudeDelta: 0.0922, longitudeDelta: 0.0421 },
+    pharm a: { name: "12 StoneHealth", street: "352 W Northfield Blvd #3", city: "Murfreesboro", state: "TN", "postcode": 37129, "image": require("takepills/img/assets/pharma.jpg"), phone: "(844) 893-0012" }
+  */
   };
   _handleMapRegionChange = mapRegion => {
     this.setState({ mapRegion });
@@ -65,13 +67,13 @@ export default class Pharma extends Component {
           </Header>
           <View style={styles.itemContainer}>
             <View style={styles.infoContainer}>
-              <Text> {this.state.pharma.name}</Text>
+              <Text> {this.props.Pharmacy.name}</Text>
               <Text>
-                <Image style={{ width: 100, height: 100 }} source={this.state.pharma.image} />
+                <Image style={{ width: 100, height: 100 }} source={this.props.Pharmacy.image} />
               </Text>
-              <Text>  {this.state.pharma.street}</Text>
-              <Text> {this.state.pharma.city} , {this.state.pharma.zip}</Text>
-              <Text> {this.state.pharma.phone}
+              <Text>  {this.props.Pharmacy.street}</Text>
+              <Text> {this.props.Pharmacy.city} , {this.props.Pharmacy.postcode}</Text>
+              <Text> {this.props.Pharmacy.phone}
               </Text>
 
               <MapView
@@ -82,10 +84,10 @@ export default class Pharma extends Component {
               >
                 {this.state.isMapReady &&
                   <MapView.Marker
-                    title='Pharmacy'
+                    title= {this.props.Pharmacy.name}
                     coordinate={{
-                      latitude: this.state.mapRegion.latitude,
-                      longitude: this.state.mapRegion.longitude
+                      latitude: this.props.Pharmacy.latitude,
+                      longitude: this.props.Pharmacy.longitude
                     }} />
                 }
               </MapView>

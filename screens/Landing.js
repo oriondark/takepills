@@ -96,7 +96,7 @@ export default class Landing extends Component {
                             </CardItem>
                             <CardItem>
                                 <Left>
-                                    <Button onPress={() => this.props.onRoute("Pharma")}><Text>Insurance Info</Text></Button>
+                                    <Button onPress={() => this.props.onRoute("PharmaList")}><Text>Insurance Info</Text></Button>
                                 </Left>
                                
                             </CardItem>

@@ -22,7 +22,7 @@ const Drawer = DrawerNavigator(
     InsuranceInfo: { screen: InsuranceInfo },
     Landing: { screen: Landing },
     Camera: { screen: Camera },
-Test: {screen : Test}
+    Test: { screen: Test }
     // Proscriber: { screen: Proscriber },
     // ProscriberList:{screen:ProscriberList},
   },
@@ -54,7 +54,7 @@ export default class App extends React.Component {
       pharmList: require('takepills/data/pharmacy.json'),
       routeName: "Landing"
     };
-   // console.log(this.state.pharmData);
+    // console.log(this.state.pharmData);
   }
   onRouteChange(routename) {
     console.log(routename);
@@ -62,19 +62,21 @@ export default class App extends React.Component {
     this.setState({ routeName: routename })
   };
 
-  onPharmacySelect(pharmacyid) {
-    this.state({routename:"Pharma",selectedpharmaid:pharmacyid})
+  onPharmacySelect(pharmacy) {
+    console.log("app pharamcy selected called");
+    console.log(pharmacy);
+    this.setState({ routeName: "Pharma", selectedpharmacy: pharmacy })
   }
   render() {
     <AppNavigator />
     switch (this.state.routeName) {
-     case 'Test':
-     return (<Test mydata={this.state.pharmData.prescriptions}/>);
+      case 'Test':
+        return (<Test mydata={this.state.pharmData.prescriptions} />);
       case 'Landing':
         return (<Landing
           onRoute={(routename) => this.onRouteChange(routename)} />);
       case 'Pharma':
-        return (<Pharma  />);
+        return (<Pharma Pharmacy={this.state.selectedpharmacy} />);
       case 'CurrentRx':
         return (<CurrentRx />);
       case 'DailySchedule':
@@ -82,7 +84,8 @@ export default class App extends React.Component {
       case 'InsuranceInfo':
         return (<InsuranceInfo />);
       case 'PharmaList':
-        return (<PharmaList mydata={this.state.pharmList}/>);
+        return (<PharmaList mydata={this.state.pharmList}
+          onPharmacy={(pharmacy) => this.onPharmacySelect(pharmacy)} />);
 
     }
 

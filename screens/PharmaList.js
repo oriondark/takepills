@@ -24,9 +24,17 @@ import Communications from 'react-native-communications';
 
 var pharmData = require('takepills/data/sched.json');
 export default class PharmaList extends Component {
-    render() {
-      return (
-        <StyleProvider style={getTheme(material)}>
+  constructor(props) {
+    super(props);
+
+  };
+  _selectPharm(pharmacy) {
+    console.log(pharmacy);
+    this.props.onPharmacy(pharmacy);
+  }
+  render() {
+    return (
+      <StyleProvider style={getTheme(material)}>
         <Container>
           <Header>
             <Left>
@@ -51,44 +59,42 @@ export default class PharmaList extends Component {
               </Button>
             </Right>
           </Header>
-        <View>
-          <FlatList
-            data={[
-              { key: '1', name: 'ABC Pharmacy', phone: '423-555-1212', status: 'Preferred Pharmacy' },
-              { key: '2', name: 'EFG Pharmacy', phone: '423-555-1212', status: 'Current Prescription Holder' },
-              { key: '3', name: 'IJK Pharmacy', phone: '423-555-1212', status: 'Suggested Best Deal' }
-            ]}
-            renderItem={({ item }) => {
-              return <View style={styles.itemContainer}>
-                <View style={styles.infoContainer}>
-                  <View style={styles.topRow}>
-                    <Text style={styles.drugName}>
-                      {item.name}
+          <View>
+            <FlatList
+              data={this.props.mydata}
+              renderItem={({ item }) => {
+                return <View style={styles.itemContainer} key={item.pharmacyid.toString()} >
+                  <View style={styles.infoContainer}>
+                    <View style={styles.topRow}>
+                      <Text style={styles.drugName}>
+                        {item.name}
+                      </Text>
+                    </View>
+                    <View style={styles.bottomRow}>
+                      <TouchableHighlight onPress={() => Communications.phonecall(item.phone, true)}>
+                        <Image style={{ width: 50, height: 50 }} source={require("takepills/img/assets/call.png")} />
+                      </TouchableHighlight>
+                      <TouchableHighlight onPress={ () => this._selectPharm(item)}>
+                        <Image style={{ width: 50, height: 50 }} source={require("takepills/img/assets/info.png")} />
+                      </TouchableHighlight>
+                      <Image style={{ width: 50, height: 50 }} source={require("takepills/img/assets/prescriptionbottle.jpg")} />
+                    </View>
+                    <View style={styles.topRow}>
+                      <Text style={styles.drugName}>
+                        Preferred
                     </Text>
-                  </View>
-                  <View style={styles.bottomRow}>
-                  <TouchableHighlight onPress={() => Communications.phonecall('4234866674', true)}>
-                    <Image  style={{ width: 50, height: 50 }} source={require("takepills/img/assets/call.png")} />
-                    </TouchableHighlight>
-                    <Image style={{ width: 50, height: 50 }} source={require("takepills/img/assets/info.png")} />
-                    <Image style={{ width: 50, height: 50 }} source={require("takepills/img/assets/prescriptionbottle.jpg")} />
-                  </View>
-                  <View style={styles.topRow}>
-                    <Text style={styles.drugName}>
-                      {item.status}
-                    </Text>
+                    </View>
                   </View>
                 </View>
-              </View>
-            }}
-          />
-        </View>
+              }}
+            />
+          </View>
         </Container>
-        </StyleProvider>
-      );
-    }
+      </StyleProvider>
+    );
   }
-  
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
