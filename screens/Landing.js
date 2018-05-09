@@ -23,13 +23,16 @@ import {
 } from "native-base";
 import Communications from 'react-native-communications';
 
+import MenuHeader from "takepills/screens/MenuHeader";
+
+
 var customData = require('takepills/data/sched.json');
 export default class Landing extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-        isReady: false
+            isReady: false
         };
     };
     async componentWillMount() {
@@ -46,59 +49,38 @@ export default class Landing extends Component {
     render() {
         if (!this.state.isReady) {
             return <Expo.AppLoading />;
-            }
-        
-            
+        }
+
+
         return (
-            
+
             <StyleProvider style={getTheme(material)}>
                 <Container>
-                    <Header>
-                        <Left>
-                            <Button transparent onPress={() => this.props.navigation.navigate('DrawerOpen')}>
-                                <Icon name="menu" />
-                            </Button>
-                        </Left>
-                        <Body>
-                            <Button transparent onPress={() => this.props.navigation.navigate.navigate('DrawerOpen')}>
-                                <Icon name="arrow-back" />
-                            </Button>
-                        </Body>
-                        <Right>
-                            <Button transparent onPress={() => Communications.phonecall('4234866674', true)}>
-                                <Icon name="call" />
-                            </Button>
-                            <Button transparent onPress={() => Communications.textWithoutEncoding('4232270153', 'Does this silly thing work?')}>
-                                <Icon name="chatbubbles" />
-                            </Button>
-                            <Button transparent>
-                                <Icon name="home" />
-                            </Button>
-                        </Right>
-                    </Header>
+
+                    <MenuHeader navigation={this.props.navigation} />
                     <Content>
                         <Card>
                             <CardItem>
                                 <Left>
-                                    <Button onPress={() => this.props.onRoute("CurrentRx")}><Text>CurrentRx</Text></Button>
+                                    <Button onPress={() => this.props.navigation.navigate("CurrentRx")}><Text>CurrentRx</Text></Button>
                                 </Left>
                                 <Right>
-                                    <Button onPress={() => this.props.onRoute("DailySchedule")}><Text>Daily Schedule</Text></Button>
+                                    <Button onPress={() => this.props.navigation.navigate("DailySchedule")}><Text>Daily Schedule</Text></Button>
                                 </Right>
                             </CardItem>
                             <CardItem>
                                 <Left>
-                                    <Button onPress={() => this.props.onRoute("InsuranceInfo")}><Text>Insurance Info</Text></Button>
+                                    <Button onPress={() => this.props.navigation.navigate("InsuranceInfo")}><Text>Insurance Info</Text></Button>
                                 </Left>
                                 <Right>
-                                    <Button onPress={() => this.props.onRoute("PharmaList")}><Text>Pharmacies</Text></Button>
+                                    <Button onPress={() => this.props.navigation.navigate("PharmaList")}><Text>Pharmacies</Text></Button>
                                 </Right>
                             </CardItem>
                             <CardItem>
                                 <Left>
-                                    <Button onPress={() => this.props.onRoute("PharmaList")}><Text>Insurance Info</Text></Button>
+                                    <Button onPress={() => this.props.navigation.navigate("PharmaList")}><Text>Insurance Info</Text></Button>
                                 </Left>
-                               
+
                             </CardItem>
                         </Card>
                     </Content>

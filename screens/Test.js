@@ -34,16 +34,45 @@ export default class Test extends Component {
     };
     render() {
         console.log(this.props.mydata);
-        return (
 
+
+
+        return (
+            <StyleProvider style={getTheme(material)}>
+                <Container>
+                    <Header>
+                        <Left>
+                            <Button transparent onPress={() => this.props.navigation.navigate('DrawerOpen')}>
+                                <Icon name="menu" />
+                            </Button>
+                        </Left>
+                        <Body>
+                            <Button transparent onPress={() => this.props.navigation.navigate.navigate('DrawerOpen')}>
+                                <Icon name="arrow-back" />
+                            </Button>
+                        </Body>
+                        <Right>
+                            <Button transparent onPress={() => Communications.phonecall('4234866674', true)}>
+                                <Icon name="call" />
+                            </Button>
+                            <Button transparent onPress={() => Communications.textWithoutEncoding('4232270153', 'Does this silly thing work?')}>
+                                <Icon name="chatbubbles" />
+                            </Button>
+                            <Button transparent>
+                                <Icon name="home" />
+                            </Button>
+                        </Right>
+                    </Header>  */}
             <Content>
-                <Text>Here</Text>
-                {
-                    this.props.mydata.map((data) => {
-                        return (<Text>{data.prescriptionid}-{data.medication.medicationame}-{data.medication.medicationdosage}</Text>);
-                    })
-                }
-            </Content>
+                        <Text>Here</Text>
+                        {
+                            this.props.mydata.map((data) => {
+                                return (<Text>{data.prescriptionid}-{data.medication.medicationame}-{data.medication.medicationdosage}</Text>);
+                            })
+                        }
+                    </Content>
+                </Container>
+            </StyleProvider>
         );
     }
 }

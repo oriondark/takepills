@@ -21,6 +21,7 @@ import {
     StyleProvider
 } from "native-base";
 import SlimHeader from 'takepills/screens/SlimHeader';
+import MenuHeader from "takepills/screens/MenuHeader";
 //var customData = require('takepills/data/sched.json');
 const mydata = [
     {
@@ -92,29 +93,7 @@ export default class CurrentRx extends Component {
 
             <StyleProvider style={getTheme(material)}>
                 <Container>
-                    <Header>
-                        <Left>
-                            <Button transparent onPress={() => this.props.navigation.navigate('DrawerOpen')}>
-                                <Icon name="menu" />
-                            </Button>
-                        </Left>
-                        <Body>
-                            <Button transparent onPress={() => this.props.navigation.navigate.navigate('DrawerOpen')}>
-                                <Icon name="arrow-back" />
-                            </Button>
-                        </Body>
-                        <Right>
-                            <Button transparent onPress={() => Communications.phonecall('4234866674', true)}>
-                                <Icon name="call" />
-                            </Button>
-                            <Button transparent onPress={() => Communications.textWithoutEncoding('4232270153', 'Does this silly thing work?')}>
-                                <Icon name="chatbubbles" />
-                            </Button>
-                            <Button transparent>
-                                <Icon name="home" />
-                            </Button>
-                        </Right>
-                    </Header>
+                <MenuHeader navigation={this.props.navigation} />
                     <View>
                         <FlatList
                             data={mydata}

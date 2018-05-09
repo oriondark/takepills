@@ -23,6 +23,8 @@ import {
   Body,
   StyleProvider
 } from "native-base";
+import MenuHeader from "takepills/screens/MenuHeader";
+
 var customData = require('takepills/data/sched.json');
 const mydata = [
   {
@@ -87,44 +89,29 @@ const mydata = [
   },
 ];
 
+
 export default class DailySchedule extends Component {
-    constructor(props) {
-        super(props);
-        // var omniData = require('takepills/data/sched.json');
-      }
+  constructor(props) {
+    super(props);
+   console.log(this.props);
+   console.log(this.props.navigation.state.params);
+   this.state = {
+    pharmData: require('takepills/data/go.json'),
+    
+  };
+    // var omniData = require('takepills/data/sched.json');
+  }
   render() {
     return (
 
       <StyleProvider style={getTheme(material)}>
         <Container>
-          <Header>
-            <Left>
-              <Button transparent onPress={() => navigation.navigate('DrawerOpen')}>
-                <Icon name="menu" />
-              </Button>
-            </Left>
-            <Body>
-              <Button transparent onPress={() => this.props.navigation.navigate.navigate('DrawerOpen')}>
-                <Icon name="arrow-back" />
-              </Button>
-            </Body>
-            <Right>
-              <Button transparent onPress={() => Communications.phonecall('4234866674', true)}>
-                <Icon name="call" />
-              </Button>
-              <Button transparent onPress={() => Communications.textWithoutEncoding('4232270153', 'Does this silly thing work?')}>
-                <Icon name="chatbubbles" />
-              </Button>
-              <Button transparent>
-                <Icon name="home" />
-              </Button>
-            </Right>
-          </Header>
+        <MenuHeader navigation={this.props.navigation} />
           <Content>
             {
-               this.props.mydata.map((data) => {
+              this.state.pharmData.prescriptions.map((data) => {
                 return (
-                    <View key={data.prescriptionid} style={{ padding: 7, flexDirection: 'row', alignItems: 'center', paddingTop: Constants.statusBarHeight }}>
+                  <View key={data.prescriptionid} style={{ padding: 7, flexDirection: 'row', alignItems: 'center', paddingTop: Constants.statusBarHeight }}>
                     <Card style={{ borderRadius: 4, borderWidth: 0.5 }}>
                       <CardItem>
                         <Left>

@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import { AppRegistry, Image, StatusBar, ImageBackground } from "react-native";
 import { Container, Content, Text, List, ListItem } from "native-base";
-const routes = ["CurrentRx","DailySchedule", "Pharma", "PharmaList","InsuranceInfo", "Camera"];
+const routes = ["CurrentRx", "DailySchedule", "Pharma", "PharmaList", "InsuranceInfo", "Camera"];
 export default class SideBar extends React.Component {
-  constructor(props) {
-    super(props); 
-  }
   render() {
     return (
       <Container>
@@ -24,13 +21,14 @@ export default class SideBar extends React.Component {
               source={require('takepills/img/shealth.png')}
             />
           </ImageBackground>
+            
           <List
             dataArray={routes}
           renderRow={data => {
             return (
               <ListItem
                 button
-                >
+                onPress={() => this.props.navigation.navigate(data)}>
                 <Text>{data}</Text>
               </ListItem>
             );

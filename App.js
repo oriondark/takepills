@@ -13,11 +13,11 @@ import Camera from "./screens/Camera";
 import Test from "./screens/Test";
 
 const Drawer = DrawerNavigator(
-  {
-
+    {
+     
     Pharma: { screen: Pharma },
     CurrentRx: { screen: CurrentRx },
-    DailySchedule: { screen: DailySchedule },
+    DailySchedule: {screen: DailySchedule},
     PharmaList: { screen: PharmaList },
     InsuranceInfo: { screen: InsuranceInfo },
     Landing: { screen: Landing },
@@ -45,7 +45,29 @@ const AppNavigator = StackNavigator(
 );
 
 
+
+
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    // var omniData = require('takepills/data/sched.json');
+    this.state = {
+      pharmData: require('takepills/data/go.json'),
+      pharmList: require('takepills/data/pharmacy.json'),
+      routeName: "Landing"
+    };
+
+   
+  }
+  render() {
+    return(
+    <AppNavigator />
+  );
+  }
+}
+
+
+  class Figures extends React.Component {
   constructor(props) {
     super(props);
     // var omniData = require('takepills/data/sched.json');
@@ -68,13 +90,14 @@ export default class App extends React.Component {
     this.setState({ routeName: "Pharma", selectedpharmacy: pharmacy })
   }
   render() {
-    <AppNavigator />
+    <AppNavigator/>
+    
     switch (this.state.routeName) {
       case 'Test':
         return (<Test mydata={this.state.pharmData.prescriptions} />);
       case 'Landing':
         return (<Landing
-          onRoute={(routename) => this.onRouteChange(routename)} />);
+          onRoute={(routename) => this.onRouteChange(routename)} navigator={navigator} />);
       case 'Pharma':
         return (<Pharma Pharmacy={this.state.selectedpharmacy} />);
       case 'CurrentRx':
@@ -88,6 +111,35 @@ export default class App extends React.Component {
           onPharmacy={(pharmacy) => this.onPharmacySelect(pharmacy)} />);
 
     }
+
+  }
+  mymenu() {
+    return (
+      <Container>
+        <Header>
+          <Left>
+            <Button transparent onPress={() => this.props.navigation.navigate('DrawerOpen')}>
+              <Icon name="menu" />
+            </Button>
+          </Left>
+          <Body>
+            <Button transparent onPress={() => this.props.navigation.navigate.navigate('DrawerOpen')}>
+              <Icon name="arrow-back" />
+            </Button>
+          </Body>
+          <Right>
+            <Button transparent onPress={() => Communications.phonecall('4234866674', true)}>
+              <Icon name="call" />
+            </Button>
+            <Button transparent onPress={() => Communications.textWithoutEncoding('4232270153', 'Does this silly thing work?')}>
+              <Icon name="chatbubbles" />
+            </Button>
+            <Button transparent>
+              <Icon name="home" />
+            </Button>
+          </Right>
+        </Header>
+      </Container>);
 
   }
 }

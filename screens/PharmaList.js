@@ -21,12 +21,17 @@ import {
   StyleProvider
 } from "native-base";
 import Communications from 'react-native-communications';
+import MenuHeader from "takepills/screens/MenuHeader";
 
 var pharmData = require('takepills/data/sched.json');
 export default class PharmaList extends Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+  
+      pharmList: require('takepills/data/pharmacy.json')
+  
+    };
   };
   _selectPharm(pharmacy) {
     console.log(pharmacy);
@@ -36,32 +41,10 @@ export default class PharmaList extends Component {
     return (
       <StyleProvider style={getTheme(material)}>
         <Container>
-          <Header>
-            <Left>
-              <Button transparent onPress={() => this.props.navigation.navigate('DrawerOpen')}>
-                <Icon name="menu" />
-              </Button>
-            </Left>
-            <Body>
-              <Button transparent onPress={() => this.props.navigation.navigate.navigate('DrawerOpen')}>
-                <Icon name="arrow-back" />
-              </Button>
-            </Body>
-            <Right>
-              <Button transparent onPress={() => Communications.phonecall('4234866674', true)}>
-                <Icon name="call" />
-              </Button>
-              <Button transparent onPress={() => Communications.textWithoutEncoding('4232270153', 'Does this silly thing work?')}>
-                <Icon name="chatbubbles" />
-              </Button>
-              <Button transparent>
-                <Icon name="home" />
-              </Button>
-            </Right>
-          </Header>
+        <MenuHeader navigation={this.props.navigation} />
           <View>
             <FlatList
-              data={this.props.mydata}
+              data={this.state.pharmList}
               renderItem={({ item }) => {
                 return <View style={styles.itemContainer} key={item.pharmacyid.toString()} >
                   <View style={styles.infoContainer}>
@@ -74,7 +57,7 @@ export default class PharmaList extends Component {
                       <TouchableHighlight onPress={() => Communications.phonecall(item.phone, true)}>
                         <Image style={{ width: 50, height: 50 }} source={require("takepills/img/assets/call.png")} />
                       </TouchableHighlight>
-                      <TouchableHighlight onPress={ () => this._selectPharm(item)}>
+                      <TouchableHighlight onPress={() =>  this.props.navigation.navigate("Pharma",{item})}>
                         <Image style={{ width: 50, height: 50 }} source={require("takepills/img/assets/info.png")} />
                       </TouchableHighlight>
                       <Image style={{ width: 50, height: 50 }} source={require("takepills/img/assets/prescriptionbottle.jpg")} />
