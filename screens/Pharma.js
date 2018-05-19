@@ -29,7 +29,7 @@ export default class Pharma extends Component {
     super(props);
     this.state = {
       isMapReady: false,
-      mapRegion: { latitude: 35.8722944, longitude: -86.3918846, latitudeDelta: 0.0922, longitudeDelta: 0.0421 },
+      mapRegion: { latitude: this.props.navigation.state.params.Pharmacy.latitude, longitude: this.props.navigation.state.params.item.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 },
       //Pharmacy : this.props.navigation.state.params.item
       /*
       mapRegion: { latitude: this.props.Pharmacy.latitude, longitude: this.props.Pharmacy.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 },
@@ -40,7 +40,7 @@ export default class Pharma extends Component {
     };
     console.log(this.props);
     console.log("Next Pharm");
-    console.log(state);
+    console.log(this.state);
    // console.log(this.state.Pharmacy);
   /*   if(this.props.navigation.state.params) {
       Pharmacy = this.props.navigation.state.Pharma;
